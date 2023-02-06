@@ -1,0 +1,22 @@
+<!-- templates/cards/box.html -->
+
+<!-- for cards/views.py -->
+{% extends "cards/base.html" %}
+{% load humanize %}
+
+<!-- for cards/views.py -->
+<!-- object_list contains the cards as objects-->
+<!-- length filter shows the number of cards current in the box -->
+<!-- pluralize filter for gramatical correctness, "Card" vs "Cards" -->
+<!-- for loop: to loop through the cards of the vox and show them by including the card.html templates -->
+{% block content %}
+    <h2>🗃 {{ box_number | ordinal }} Box</h2>
+    <mark>{{ object_list | length }}</mark> Card{{ object_list | pluralize }} left in box.
+    <hr/>
+<!-- Directly refer to check_card instead of looping through cards in object_list -->
+<!-- only include card.html when card is present, use "with" inside "include" tag to pass additional context to the included template-->
+<!-- need to pass card=check_card into subtemplate, since card.html doesnt know "check_card" variable -->
+    {% if check_card %}
+        {% include "cards/card.html" with card=check_card %}
+    {% endif %}
+{% endblock content %}

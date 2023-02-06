@@ -1,0 +1,25 @@
+<!-- cards/templates/cards/card.html -->
+
+<article>
+    <h4>{{ card.question }}</h4>
+<!-- Edit button doesn't show when "check_card" is present -->
+    {% if not check_card %}
+        <p>{{ card.answer }}</p>
+        <hr>
+<!-- card.id is needed as a param for <int:pk> patter in the route to card-update (cards/urls.py) -->
+        <a href="{% url 'card-update' card.id %}" role="button">
+           ✏️ Edit Card
+        </a>
+        <a href="{% url 'card-update' card.id %}" role="button">
+            ❌️ Remove 
+        </a>
+    {% else %}
+        <details>
+            <summary>Reveal Answer</summary>
+            <p>{{ card.answer }}</p>
+        </details>
+        <hr/>
+        {% include "cards/card_check_form.html" with solved=True %}
+        {% include "cards/card_check_form.html" with solved=False %}
+    {% endif %}
+</article>

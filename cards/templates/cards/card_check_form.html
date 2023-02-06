@@ -1,0 +1,12 @@
+<!-- cards/templates/cards/card_check_form.html -->
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="card_id" value="{{ card.id }}">
+    <input type="hidden" name="solved" value="{{ solved }}">
+    {% if solved %}
+        <input type="submit" value="✅ Easy"/>
+    {% else %}
+        <input type="submit" value="❌ Difficult"/>
+    {% endif %}
+</form>

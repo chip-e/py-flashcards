@@ -1,0 +1,21 @@
+<!-- cards/templates/cards/card_form.html -->
+
+{% extends "cards/base.html" %}
+
+{% block content %}
+<!-- if block to display either "Edit Card" or "Create New Card" headline when card_form.html receives card data -->
+    {% if card %}
+        <h2>✏️ Edit Card</h2>
+    {% else %}
+        <h2>✨ Create New Card</h2>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}<!-- security: prevent cross-site request forgery -->
+        {{ form.as_p }} <!-- display form fields wrapped in paragraphs -->
+        <input type="submit" value="Save Card">
+    </form>
+<!-- option to cancel new card: back to "card-list" url-->
+    <a href="{% url 'card-list' %}">
+        Cancel
+    </a>
+{% endblock %}
